@@ -1,1 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OOP Quiz</title>
+    <style>
+        body {
+            background-color: #020617;
+            color: #e2e8f0;
+            font-family: monospace;
+            padding: 20px;
+        }
+        h1 {
+            color: #a78bfa;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 12px;
+            border-left: 3px solid #a78bfa;
+            background: #0f172a;
+        }
+        button {
+            padding: 10px 20px;
+            background: #a78bfa;
+            border: none;
+            cursor: pointer;
+            color: black;
+            font-weight: bold;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #22c55e;
+        }
+    </style>
+</head>
+<body>
 
+<h1>🧠 OOP Quiz (30 Tough MCQs)</h1>
+
+<form id="quizForm"></form>
+
+<button onclick="submitQuiz()">Submit</button>
+
+<h2 id="result"></h2>
+
+<script>
+const questions = [
+
+{q:"OOP stands for?",o:["Object Oriented Programming","Only One Program","Object Only Process","None"],a:0},
+
+{q:"Class is?",o:["Instance","Blueprint","Function","Variable"],a:1},
+
+{q:"Object is?",o:["Blueprint","Instance","Function","Loop"],a:1},
+
+{q:"Encapsulation means?",o:["Hide data","Show data","Delete data","Copy data"],a:0},
+
+{q:"Abstraction means?",o:["Hide implementation","Show all","Delete data","Copy"],a:0},
+
+{q:"Inheritance means?",o:["Reuse code","Delete","Copy only","Hide"],a:0},
+
+{q:"Polymorphism means?",o:["One form","Many forms","No form","Same form"],a:1},
+
+{q:"Constructor is?",o:["Special method","Loop","Variable","File"],a:0},
+
+{q:"Constructor name in Python?",o:["init()","__init__()","start()","create()"],a:1},
+
+{q:"Destructor in Python?",o:["__del__()","destroy()","delete()","remove()"],a:0},
+
+{q:"Method is?",o:["Function in class","Loop","Variable","File"],a:0},
+
+{q:"self refers to?",o:["Class","Object","Function","File"],a:1},
+
+{q:"Inheritance types?",o:["Single","Multiple","Multilevel","All"],a:3},
+
+{q:"Method overriding means?",o:["Same method name","Different name","Delete method","Copy method"],a:0},
+
+{q:"Method overloading in Python?",o:["Supported","Not supported directly","Always supported","None"],a:1},
+
+{q:"Access specifiers?",o:["Public","Private","Protected","All"],a:3},
+
+{q:"Private variable prefix?",o:["__","_","#","$"],a:0},
+
+{q:"Protected variable prefix?",o:["__","_","#","$"],a:1},
+
+{q:"Public variable prefix?",o:["none","_","__","#"],a:0},
+
+{q:"What is object creation?",o:["Class call","Function call","Loop","File"],a:0},
+
+{q:"Dynamic binding means?",o:["Runtime binding","Compile time","Static","None"],a:0},
+
+{q:"Static binding means?",o:["Compile time","Runtime","Dynamic","None"],a:0},
+
+{q:"Which supports OOP?",o:["C","Python","Assembly","HTML"],a:1},
+
+{q:"Which is not OOP feature?",o:["Encapsulation","Inheritance","Compilation","Polymorphism"],a:2},
+
+{q:"Class keyword?",o:["class","def","func","object"],a:0},
+
+{q:"Object creation syntax?",o:["obj=Class()","Class obj","new Class","obj.create"],a:0},
+
+{q:"Multiple inheritance means?",o:["One parent","Many parents","No parent","One child"],a:1},
+
+{q:"Hierarchical inheritance?",o:["One parent many child","Many parent one child","Chain","None"],a:0},
+
+{q:"Multilevel inheritance?",o:["Chain","Tree","Graph","None"],a:0},
+
+{q:"What is super()?",o:["Parent access","Child access","Loop","File"],a:0}
+
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((q,i)=>{
+    let div=document.createElement("div");
+    div.classList.add("question");
+
+    div.innerHTML=`<p>${i+1}. ${q.q}</p>`+
+    q.o.map((opt,j)=>
+        `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label><br>`
+    ).join("");
+
+    form.appendChild(div);
+});
+
+function submitQuiz(){
+    let score=0;
+    let wrong=0;
+
+    questions.forEach((q,i)=>{
+        let ans=document.querySelector(`input[name="q${i}"]:checked`);
+        if(ans && parseInt(ans.value)===q.a){
+            score++;
+        } else {
+            wrong++;
+        }
+    });
+
+    document.getElementById("result").innerHTML=
+        `✅ Correct: ${score} <br>
+         ❌ Wrong: ${wrong} <br>
+         📊 Score: ${score} / ${questions.length}`;
+}
+</script>
+
+</body>
+</html>
