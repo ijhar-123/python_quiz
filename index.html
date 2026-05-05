@@ -1,1 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Quiz</title>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: monospace;
+            padding: 20px;
+        }
+        h1 {
+            color: #38bdf8;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-left: 3px solid #38bdf8;
+            background: #020617;
+        }
+        button {
+            padding: 10px 20px;
+            background: #38bdf8;
+            border: none;
+            cursor: pointer;
+            color: black;
+            font-weight: bold;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #22c55e;
+        }
+    </style>
+</head>
+<body>
 
+<h1>💻 Python Quiz (40 MCQs)</h1>
+
+<form id="quizForm"></form>
+
+<button onclick="submitQuiz()">Submit</button>
+
+<h2 id="result"></h2>
+
+<script>
+const questions = [
+{q:"Python is?",o:["Compiled","Interpreted","Assembly","Machine"],a:1},
+{q:"Which symbol starts comment?",o:["#","//","--","/*"],a:0},
+{q:"Type of 5?",o:["int","float","str","bool"],a:0},
+{q:"5/2 result?",o:["2","2.5","3","error"],a:1},
+{q:"5//2 result?",o:["2","2.5","3","1"],a:0},
+{q:"len('abc')?",o:["2","3","4","error"],a:1},
+{q:"List is?",o:["mutable","immutable","fixed","none"],a:0},
+{q:"Tuple is?",o:["mutable","immutable","list","set"],a:1},
+{q:"Dictionary uses?",o:["index","key-value","stack","queue"],a:1},
+{q:"Set allows?",o:["duplicates","unique","sorted","indexed"],a:1},
+
+{q:"Which keyword defines function?",o:["func","def","function","create"],a:1},
+{q:"Break does?",o:["skip","exit loop","continue","pass"],a:1},
+{q:"Continue does?",o:["exit","skip iteration","stop","pass"],a:1},
+{q:"Pass does?",o:["skip block","stop","exit","break"],a:0},
+{q:"Input function?",o:["input()","scan()","read()","get()"],a:0},
+{q:"Output function?",o:["print()","echo()","write()","show()"],a:0},
+{q:"Type casting?",o:["int()","str()","float()","all"],a:3},
+{q:"List index starts?",o:["0","1","-1","depends"],a:0},
+{q:"Negative index means?",o:["error","reverse access","zero","none"],a:1},
+{q:"Append list?",o:["add","append","insert","push"],a:1},
+
+{q:"Insert list?",o:["insert","add","push","append"],a:0},
+{q:"Remove element?",o:["remove","delete","pop","all"],a:3},
+{q:"Pop does?",o:["delete","remove last","add","none"],a:1},
+{q:"Sort list?",o:["sort()","arrange()","order()","list()"],a:0},
+{q:"Reverse list?",o:["rev()","reverse()","flip()","back()"],a:1},
+{q:"For loop syntax?",o:["for i in","for(i)","loop","repeat"],a:0},
+{q:"While loop?",o:["while","loop","repeat","for"],a:0},
+{q:"If syntax?",o:["if","condition","check","case"],a:0},
+{q:"Else if?",o:["elif","elseif","else if","case"],a:0},
+{q:"Logical AND?",o:["and","&&","&","all"],a:0},
+
+{q:"Logical OR?",o:["or","||","|","all"],a:0},
+{q:"Not operator?",o:["!","not","~","none"],a:1},
+{q:"String concat?",o:["+","&","concat","join"],a:0},
+{q:"Length of list?",o:["len()","size()","count()","length()"],a:0},
+{q:"Range function?",o:["range()","loop()","seq()","list()"],a:0},
+{q:"File open?",o:["open()","file()","read()","load()"],a:0},
+{q:"Read file?",o:["read()","input()","scan()","file()"],a:0},
+{q:"Write file?",o:["write()","print()","echo()","put()"],a:0},
+{q:"Close file?",o:["close()","end()","stop()","exit()"],a:0},
+{q:"Boolean values?",o:["True/False","1/0","yes/no","all"],a:0}
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((q,i)=>{
+    let div=document.createElement("div");
+    div.classList.add("question");
+
+    div.innerHTML=`<p>${i+1}. ${q.q}</p>`+
+    q.o.map((opt,j)=>
+        `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label><br>`
+    ).join("");
+
+    form.appendChild(div);
+});
+
+function submitQuiz(){
+    let score=0;
+    let wrong=0;
+
+    questions.forEach((q,i)=>{
+        let ans=document.querySelector(`input[name="q${i}"]:checked`);
+        if(ans && parseInt(ans.value)===q.a){
+            score++;
+        } else {
+            wrong++;
+        }
+    });
+
+    document.getElementById("result").innerHTML=
+        `✅ Correct: ${score} <br>
+         ❌ Wrong: ${wrong} <br>
+         📊 Score: ${score} / ${questions.length}`;
+}
+</script>
+
+</body>
+</html>
