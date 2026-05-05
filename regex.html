@@ -1,1 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Regex Quiz</title>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: monospace;
+            padding: 20px;
+        }
+        h1 {
+            color: #facc15;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-left: 3px solid #facc15;
+            background: #020617;
+        }
+        button {
+            padding: 10px 20px;
+            background: #facc15;
+            border: none;
+            cursor: pointer;
+            color: black;
+            font-weight: bold;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #22c55e;
+        }
+    </style>
+</head>
+<body>
 
+<h1>🔥 Regex Quiz (30 Tough MCQs)</h1>
+
+<form id="quizForm"></form>
+
+<button onclick="submitQuiz()">Submit</button>
+
+<h2 id="result"></h2>
+
+<script>
+const questions = [
+
+{q:"Regex '.' matches?",o:["Dot only","Any single character","Digit only","Space only"],a:1},
+
+{q:"\\d matches?",o:["Digit","Letter","Symbol","Space"],a:0},
+
+{q:"\\D matches?",o:["Digit","Non-digit","Letter","Space"],a:1},
+
+{q:"^abc matches?",o:["Ends with abc","Starts with abc","Contains abc","Exact abc"],a:1},
+
+{q:"abc$ matches?",o:["Starts with abc","Ends with abc","Contains abc","Exact abc"],a:1},
+
+{q:"[a-z] matches?",o:["Uppercase","Lowercase","Digits","Symbols"],a:1},
+
+{q:"[A-Z] matches?",o:["Lowercase","Uppercase","Digits","Symbols"],a:1},
+
+{q:"[0-9] matches?",o:["Letters","Digits","Symbols","Space"],a:1},
+
+{q:"\\w matches?",o:["Word char","Digit only","Space","Symbol"],a:0},
+
+{q:"\\W matches?",o:["Word char","Non-word char","Digit","Letter"],a:1},
+
+{q:"\\s matches?",o:["Space","Digit","Letter","Symbol"],a:0},
+
+{q:"\\S matches?",o:["Non-space","Space","Digit","Letter"],a:0},
+
+{q:"a* matches?",o:["1 a","0 or more a","1 or more a","exact a"],a:1},
+
+{q:"a+ matches?",o:["0 or more a","1 or more a","exact a","none"],a:1},
+
+{q:"a? matches?",o:["0 or 1 a","1 or more","exact a","none"],a:0},
+
+{q:"{3} means?",o:["at least 3","exactly 3","max 3","none"],a:1},
+
+{q:"{2,4} means?",o:["2 to 4","exact 2","max 4","none"],a:0},
+
+{q:"| means?",o:["AND","OR","NOT","XOR"],a:1},
+
+{q:"(abc) means?",o:["group","optional","repeat","none"],a:0},
+
+{q:"\\b means?",o:["word boundary","space","digit","line"],a:0},
+
+{q:"\\B means?",o:["word boundary","non-boundary","digit","line"],a:1},
+
+{q:"Pattern for email?",o:["\\w+@\\w+\\.\\w+","abc","[0-9]+","none"],a:0},
+
+{q:"^\\d{3}$ matches?",o:["3 digits","any digits","min 3","max 3"],a:0},
+
+{q:"[aeiou] matches?",o:["consonant","vowel","digit","symbol"],a:1},
+
+{q:"[^0-9] means?",o:["digits","non-digits","letters","none"],a:1},
+
+{q:"(ab)+ means?",o:["ab once","ab repeated","a or b","none"],a:1},
+
+{q:"a.*b means?",o:["a then anything then b","only ab","only a","none"],a:0},
+
+{q:"^$ matches?",o:["empty string","abc","space","none"],a:0},
+
+{q:"\\n means?",o:["newline","tab","space","digit"],a:0},
+
+{q:"\\t means?",o:["tab","newline","space","digit"],a:0}
+
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((q,i)=>{
+    let div=document.createElement("div");
+    div.classList.add("question");
+
+    div.innerHTML=`<p>${i+1}. ${q.q}</p>`+
+    q.o.map((opt,j)=>
+        `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label><br>`
+    ).join("");
+
+    form.appendChild(div);
+});
+
+function submitQuiz(){
+    let score=0;
+    let wrong=0;
+
+    questions.forEach((q,i)=>{
+        let ans=document.querySelector(`input[name="q${i}"]:checked`);
+        if(ans && parseInt(ans.value)===q.a){
+            score++;
+        } else {
+            wrong++;
+        }
+    });
+
+    document.getElementById("result").innerHTML=
+        `✅ Correct: ${score} <br>
+         ❌ Wrong: ${wrong} <br>
+         📊 Score: ${score} / ${questions.length}`;
+}
+</script>
+
+</body>
+</html>
